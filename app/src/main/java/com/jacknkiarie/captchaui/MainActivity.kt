@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val captchaLayout = CaptchaLayout()
-        captchaLayout.show(supportFragmentManager.beginTransaction(), "CAPTCHA")
+//        val captchaLayout = CaptchaLayout()
+//        captchaLayout.show(supportFragmentManager.beginTransaction(), "CAPTCHA")
     }
 }

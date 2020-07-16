@@ -57,18 +57,18 @@ class CaptchaView : View {
     }
 
     private fun init(attrs: AttributeSet?) {
-        val a = context.obtainStyledAttributes(
-            attrs,
-            R.styleable.CaptchaView
-        )
-        Log.i(
-            "test", a.getString(
-                R.styleable.CaptchaView_extraInformation
-            )
-        )
+//        val a = context.obtainStyledAttributes(
+//            attrs,
+//            R.styleable.CaptchaView
+//        )
+//        Log.i(
+//            "test", a.getString(
+//                R.styleable.CaptchaView_extraInformation
+//            )
+//        )
 
         //Don't forget this
-        a.recycle()
+//        a.recycle()
     }
 
     private fun setupViews(context: Context) {
@@ -82,7 +82,7 @@ class CaptchaView : View {
         mPaint!!.isAntiAlias = true
         mPaint!!.style = Paint.Style.STROKE
         mPaint!!.color = Color.BLUE
-        mPaint!!.strokeWidth = 5f
+        mPaint!!.strokeWidth = 3f
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -110,7 +110,12 @@ class CaptchaView : View {
 //        canvas.restore();
 
 //        canvas.drawText("Normal text", (float) 50, (float) 50, mTextPaint);
-        canvas.drawLine(0f, 0f, 50f, 50f, mPaint!!)
+
+        for (c in (0..6)) {
+            val lineAttributes = generateRandomLine()
+            canvas.drawLine(lineAttributes.startingXCoordinate, lineAttributes.startingYCoordinate,
+                lineAttributes.endingXCoordinate, lineAttributes.endingYCoordinate, mPaint!!)
+        }
     }
 
     private val randomAlphabet: String
@@ -122,14 +127,24 @@ class CaptchaView : View {
     private fun generatePassCode(): String {
         var passCodeString = ""
         for (i in 0..4) {
-            passCodeString = passCodeString + randomAlphabet
+            passCodeString += randomAlphabet
         }
         return passCodeString
     }
 
     private fun generateRandomRotationAngle(min: Int, max: Int): Int {
         return min + (Math.random() * (max - min + 1)).toInt()
-    } //    public Line generateRandomLine() {}
+    }
+
+    private fun generateRandomLine() : LineAttributes {
+        val startingXCoordinate = (0..width).random()
+        val startingYCoordinate = (0..height).random()
+
+        val endingXCoordinate = (0..width).random()
+        val endingYCoordinate = (0..height).random()
+
+        return LineAttributes(startingXCoordinate.toFloat(), startingYCoordinate.toFloat(), endingXCoordinate.toFloat(), endingYCoordinate.toFloat())
+    }
 
     companion object {
         fun pxFromDp(context: Context, dp: Float): Float {
