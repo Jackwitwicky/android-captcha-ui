@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Captcha UI</string>
+
+    <string name="captcha_header">Tips</string>
+    <string name="captcha_description">Developer settings are for development use only. If you enable these settings, your device and any apps on it may crash or experience errors. Please be careful when using these settings.</string>
+    <string name="captcha_verification_code_prompt">Verification code:</string>
+    <string name="captcha_input_message">To continue, enter the verification code from the image above:</string>
 </resources>

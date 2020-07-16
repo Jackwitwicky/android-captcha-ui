@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:id="@+id/captcha_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/captcha_header"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"/>
+
+    <View
+        android:id="@+id/captcha_header_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:layout_below="@id/captcha_header"/>
+
+    <TextView
+        android:id="@+id/captcha_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/captcha_header_divider"
+        android:text="@string/captcha_description"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/captcha_verification_code_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/captcha_description"
+        android:text="@string/captcha_verification_code_prompt"
+        android:layout_marginLeft="10dp"/>
+
+    <com.jacknkiarie.captchaui.CaptchaView
+        android:id="@+id/captcha_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@id/captcha_verification_code_prompt"
+        android:layout_below="@id/captcha_description"
+        app:extraInformation="I am extra info!!"/>
+
+    <TextView
+        android:id="@+id/captcha_input_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/captcha_input_message"
+        android:layout_below="@id/captcha_view"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/captcha_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/captcha_input_prompt"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+
+    <View
+        android:id="@+id/captcha_footer_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ededed"
+        android:layout_below="@id/captcha_input"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@android:string/cancel"
+        android:layout_below="@id/captcha_footer_divider"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@android:string/ok"
+        android:layout_below="@id/captcha_footer_divider"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        app:backgroundTint="@color/colorAccent"/>
+</RelativeLayout>
