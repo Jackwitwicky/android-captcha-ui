@@ -69,6 +69,7 @@
         android:layout_marginTop="16dp"/>
 
     <Button
+        android:id="@+id/captcha_negative_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@android:string/cancel"
@@ -77,6 +78,7 @@
         android:layout_marginLeft="16dp"/>
 
     <Button
+        android:id="@+id/captcha_positive_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@android:string/ok"

@@ -12,8 +12,8 @@ import java.util.*
 
 class CaptchaView : View {
     private lateinit var mContext : Context
-    var mTextPaint: Paint? = null
-    var mPaint: Paint? = null
+    private lateinit var mTextPaint: Paint
+    private lateinit var mLinePaint: Paint
     var textWidth = 0f
     var alphabet = arrayOf(
         "A",
@@ -75,14 +75,14 @@ class CaptchaView : View {
         this.mContext = context
         mTextPaint =
             Paint(Paint.LINEAR_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG)
-        mTextPaint!!.color = Color.BLACK
-        mTextPaint!!.textSize = pxFromDp(context, 24f)
+        mTextPaint.color = Color.BLACK
+        mTextPaint.textSize = pxFromDp(context, 24f)
         textWidth = pxFromDp(context, 24f)
-        mPaint = Paint()
-        mPaint!!.isAntiAlias = true
-        mPaint!!.style = Paint.Style.STROKE
-        mPaint!!.color = Color.BLUE
-        mPaint!!.strokeWidth = 3f
+        mLinePaint = Paint()
+        mLinePaint.isAntiAlias = true
+        mLinePaint.style = Paint.Style.STROKE
+        mLinePaint.color = Color.BLUE
+        mLinePaint.strokeWidth = 3f
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -114,7 +114,7 @@ class CaptchaView : View {
         for (c in (0..6)) {
             val lineAttributes = generateRandomLine()
             canvas.drawLine(lineAttributes.startingXCoordinate, lineAttributes.startingYCoordinate,
-                lineAttributes.endingXCoordinate, lineAttributes.endingYCoordinate, mPaint!!)
+                lineAttributes.endingXCoordinate, lineAttributes.endingYCoordinate, mLinePaint)
         }
     }
 
@@ -144,6 +144,14 @@ class CaptchaView : View {
         val endingYCoordinate = (0..height).random()
 
         return LineAttributes(startingXCoordinate.toFloat(), startingYCoordinate.toFloat(), endingXCoordinate.toFloat(), endingYCoordinate.toFloat())
+    }
+
+    public fun setTextColor(textColor : Int) {
+        mTextPaint.color = textColor
+    }
+
+    fun setLineColor(lineColor: Int) {
+        mLinePaint.color = lineColor
     }
 
     companion object {

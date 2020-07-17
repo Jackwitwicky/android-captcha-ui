@@ -11,6 +11,11 @@
         android:layout_height="wrap_content"
         app:extraInformation="I am extra info"
         app:line_color="@color/colorAccent"
-        app:text_color="@color/colorAccent" />
+        app:text_color="@color/colorAccent"
+        app:captcha_positive_button_text_color="@android:color/white"
+        app:captcha_negative_button_text="NOPE"
+        app:captcha_positive_button_text="YAAAAAS"
+        app:captcha_header="Captcha Verification"
+        app:captcha_description="The operation you are about to do cannot be reversed or undone. Please proceed if you are certain this is what you would like to do."/>
 
 </RelativeLayout>

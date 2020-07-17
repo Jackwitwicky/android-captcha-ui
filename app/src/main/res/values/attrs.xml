@@ -4,5 +4,13 @@
         <attr name="extraInformation" format="string" />
         <attr name="line_color" format="color" />
         <attr name="text_color" format="color" />
+        <attr name="captcha_header" format="string" />
+        <attr name="captcha_description" format="string" />
+        <attr name="captcha_positive_button_text" format="string" />
+        <attr name="captcha_positive_button_color" format="color" />
+        <attr name="captcha_positive_button_text_color" format="color" />
+        <attr name="captcha_negative_button_text" format="string" />
+        <attr name="captcha_negative_button_color" format="color" />
+        <attr name="captcha_negative_button_text_color" format="color" />
     </declare-styleable>
 </resources>
