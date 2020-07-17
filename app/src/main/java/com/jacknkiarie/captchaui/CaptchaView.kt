@@ -14,8 +14,13 @@ class CaptchaView : View {
     private lateinit var mContext : Context
     private lateinit var mTextPaint: Paint
     private lateinit var mLinePaint: Paint
-    var textWidth = 0f
-    var alphabet = arrayOf(
+    private lateinit var verificationCode: String
+    private var verificationCodeLength: Int = 4
+
+    private var textWidth = 0f
+    private var rotationalAngleList = mutableListOf<Int>()
+    private var obfuscationLinesList = mutableListOf<LineAttributes>()
+    private var alphabet = arrayOf(
         "A",
         "B",
         "C",
@@ -53,22 +58,6 @@ class CaptchaView : View {
         attrs: AttributeSet?
     ) : super(context, attrs) {
         setupViews(context)
-        init(attrs)
-    }
-
-    private fun init(attrs: AttributeSet?) {
-//        val a = context.obtainStyledAttributes(
-//            attrs,
-//            R.styleable.CaptchaView
-//        )
-//        Log.i(
-//            "test", a.getString(
-//                R.styleable.CaptchaView_extraInformation
-//            )
-//        )
-
-        //Don't forget this
-//        a.recycle()
     }
 
     private fun setupViews(context: Context) {
@@ -83,38 +72,39 @@ class CaptchaView : View {
         mLinePaint.style = Paint.Style.STROKE
         mLinePaint.color = Color.BLUE
         mLinePaint.strokeWidth = 3f
+        verificationCode = generateVerificationCode(verificationCodeLength)
+        setupVerificationCodesRotationAngles(verificationCode.length)
+        setupObfuscationLines()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         var x = 50
+        var characterIndex = 0
         val fontWidth = textWidth
-        for (c in generatePassCode().toCharArray()) {
+        for (c in verificationCode.toCharArray()) {
             canvas.save()
             canvas.rotate(
-                generateRandomRotationAngle(-45, 45).toFloat(),
+                rotationalAngleList[characterIndex].toFloat(),
                 x.toFloat(),
                 height / 2.toFloat()
             )
             canvas.drawText(
                 c.toString(), x.toFloat(), canvas.height / 2.toFloat(),
-                mTextPaint!!
+                mTextPaint
             )
             canvas.restore()
             x += fontWidth.toInt()
+            characterIndex += 1
         }
 
-//        canvas.save();
-//        canvas.rotate(-20, getWidth()/2, getHeight()/2);
-//        canvas.drawText("Canvas basics", (float) 200, (float) 200, mTextPaint);
-//        canvas.restore();
+        var lineIndex = 0
 
-//        canvas.drawText("Normal text", (float) 50, (float) 50, mTextPaint);
-
-        for (c in (0..6)) {
-            val lineAttributes = generateRandomLine()
-            canvas.drawLine(lineAttributes.startingXCoordinate, lineAttributes.startingYCoordinate,
-                lineAttributes.endingXCoordinate, lineAttributes.endingYCoordinate, mLinePaint)
+        for (index in 0..DEFAULT_OBFUSCATION_LINE_COUNT) {
+            canvas.drawLine(
+                obfuscationLinesList[lineIndex].startingXCoordinate, obfuscationLinesList[lineIndex].startingYCoordinate,
+                obfuscationLinesList[lineIndex].endingXCoordinate, obfuscationLinesList[lineIndex].endingYCoordinate, mLinePaint)
+            lineIndex += 1
         }
     }
 
@@ -124,9 +114,9 @@ class CaptchaView : View {
             return alphabet[random.nextInt(25)]
         }
 
-    private fun generatePassCode(): String {
+    private fun generateVerificationCode(verificationCodeLength: Int): String {
         var passCodeString = ""
-        for (i in 0..4) {
+        for (i in 0 until verificationCodeLength) {
             passCodeString += randomAlphabet
         }
         return passCodeString
@@ -137,16 +127,32 @@ class CaptchaView : View {
     }
 
     private fun generateRandomLine() : LineAttributes {
-        val startingXCoordinate = (0..width).random()
-        val startingYCoordinate = (0..height).random()
+        val startingXCoordinate = (0..pxFromDp(context, 200f).toInt()).random()
+        val startingYCoordinate = (0..pxFromDp(context, 40f).toInt()).random()
 
-        val endingXCoordinate = (0..width).random()
-        val endingYCoordinate = (0..height).random()
+        val endingXCoordinate = (0..pxFromDp(context, 200f).toInt()).random()
+        val endingYCoordinate = (0..pxFromDp(context, 40f).toInt()).random()
 
         return LineAttributes(startingXCoordinate.toFloat(), startingYCoordinate.toFloat(), endingXCoordinate.toFloat(), endingYCoordinate.toFloat())
     }
 
-    public fun setTextColor(textColor : Int) {
+    // create a list that will contain random angle to be used to rotate each
+    // of the verification code character
+    private fun setupVerificationCodesRotationAngles(verificationCodeLength : Int) {
+        for (verificationCodeIndex in (0..verificationCodeLength)) {
+            rotationalAngleList.add(generateRandomRotationAngle(MINIMUM_ROTATIONAL_ANGLE, MAXIMUM_ROTATIONAL_ANGLE))
+        }
+    }
+
+    // create a list that will contain random lines to be used to obfuscate the
+    // verification code
+    private fun setupObfuscationLines() {
+        for (c in (0..DEFAULT_OBFUSCATION_LINE_COUNT)) {
+            obfuscationLinesList.add(generateRandomLine())
+        }
+    }
+
+    fun setTextColor(textColor : Int) {
         mTextPaint.color = textColor
     }
 
@@ -154,9 +160,29 @@ class CaptchaView : View {
         mLinePaint.color = lineColor
     }
 
+    fun setVerificationCodeLength(verificationCodeLength: Int) {
+        this.verificationCodeLength = verificationCodeLength
+        verificationCode = generateVerificationCode(verificationCodeLength)
+        setupVerificationCodesRotationAngles(verificationCodeLength)
+        this.invalidate()
+    }
+
+    fun getVerificationCode() : String {
+        return verificationCode
+    }
+
+    fun isInputCodeValid(inputCode: String): Boolean {
+        return verificationCode == inputCode
+    }
+
     companion object {
         fun pxFromDp(context: Context, dp: Float): Float {
             return dp * context.resources.displayMetrics.density
         }
+
+        private const val MINIMUM_ROTATIONAL_ANGLE = -45
+        private const val MAXIMUM_ROTATIONAL_ANGLE = 45
+        private const val DEFAULT_OBFUSCATION_LINE_COUNT = 6
+        const val DEFAULT_VERIFICATION_CODE_LENGTH = 4
     }
 }

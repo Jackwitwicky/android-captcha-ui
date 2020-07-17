@@ -6,6 +6,7 @@
         <attr name="text_color" format="color" />
         <attr name="captcha_header" format="string" />
         <attr name="captcha_description" format="string" />
+        <attr name="captcha_code_length" format="integer" />
         <attr name="captcha_positive_button_text" format="string" />
         <attr name="captcha_positive_button_color" format="color" />
         <attr name="captcha_positive_button_text_color" format="color" />

@@ -6,7 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I am content underneath"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/verify_request_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="verify request"
+        android:layout_centerHorizontal="true"/>
+
     <com.jacknkiarie.captchaui.CaptchaLayout
+        android:id="@+id/captcha_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:extraInformation="I am extra info"
@@ -14,8 +28,10 @@
         app:text_color="@color/colorAccent"
         app:captcha_positive_button_text_color="@android:color/white"
         app:captcha_negative_button_text="NOPE"
-        app:captcha_positive_button_text="YAAAAAS"
+        app:captcha_positive_button_text="OK"
         app:captcha_header="Captcha Verification"
-        app:captcha_description="The operation you are about to do cannot be reversed or undone. Please proceed if you are certain this is what you would like to do."/>
+        app:captcha_description="The operation you are about to do cannot be reversed or undone. Please proceed if you are certain this is what you would like to do."
+        app:captcha_code_length="4"
+        android:visibility="gone"/>
 
 </RelativeLayout>
