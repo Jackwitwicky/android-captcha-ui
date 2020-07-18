@@ -1,5 +1,6 @@
 package com.jacknkiarie.captchaui
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity(), CaptchaLayout.OnButtonClickedListener 
 //            captchaLayout.show(supportFragmentManager.beginTransaction(), "CAPTCHA")
 
             CaptchaUI.Builder(this@MainActivity)
-                .setCaptchaTitle("Captcha Verification").build()
+                .setCaptchaTitle("Captcha Verification")
+                .setCaptchaLineColor(Color.CYAN).build()
         }
     }
 

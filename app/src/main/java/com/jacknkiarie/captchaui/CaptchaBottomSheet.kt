@@ -20,7 +20,8 @@ class CaptchaBottomSheet : BottomSheetDialogFragment() {
         val fragmentView = inflater.inflate(R.layout.dialog_captcha, container, false)
 
         val captchaView = fragmentView.findViewById<CaptchaView>(R.id.captcha_view)
-//        captchaView.setLineColor(lineColor)
+        arguments?.getInt(CaptchaUI.EXTRA_CAPTCHA_LINE_COLOR, DefaultAttributes.CAPTCHA_LINE_COLOR)
+            ?.let { captchaView.setLineColor(it) }
 //        captchaView.setTextColor(textColor)
 //        captchaView.setVerificationCodeLength(verificationCodeLength)
 
