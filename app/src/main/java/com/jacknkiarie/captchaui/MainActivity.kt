@@ -12,13 +12,15 @@ class MainActivity : AppCompatActivity(), CaptchaLayout.OnButtonClickedListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val captchaLayout = CaptchaBottomSheet()
         captcha_layout.setOnButtonClickedListener(this)
         verify_request_button.setOnClickListener {
-            captcha_layout.visibility = View.VISIBLE
-        }
+//            captcha_layout.visibility = View.VISIBLE
+//            captchaLayout.show(supportFragmentManager.beginTransaction(), "CAPTCHA")
 
-//        val captchaLayout = CaptchaLayout()
-//        captchaLayout.show(supportFragmentManager.beginTransaction(), "CAPTCHA")
+            CaptchaUI.Builder(this@MainActivity)
+                .setCaptchaTitle("Captcha Verification").build()
+        }
     }
 
     override fun onNegativeButtonClicked() {

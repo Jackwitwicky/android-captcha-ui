@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="verify request"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible"/>
+        android:visibility="visible"/>
 
     <com.jacknkiarie.captchaui.CaptchaLayout
         android:id="@+id/captcha_layout"
@@ -32,6 +32,7 @@
         app:captcha_positive_button_text="OK"
         app:captcha_header="Captcha Verification"
         app:captcha_description="The operation you are about to do cannot be reversed or undone. Please proceed if you are certain this is what you would like to do."
-        app:captcha_code_length="4" />
+        app:captcha_code_length="4"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
