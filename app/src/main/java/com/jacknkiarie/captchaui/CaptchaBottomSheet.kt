@@ -12,6 +12,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CaptchaBottomSheet : BottomSheetDialogFragment() {
 
+    private lateinit var callback: CaptchaLayout.OnButtonClickedListener
+
+    fun setOnButtonClickedListener(callback: CaptchaLayout.OnButtonClickedListener) {
+        this.callback = callback
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,24 +28,28 @@ class CaptchaBottomSheet : BottomSheetDialogFragment() {
         val captchaView = fragmentView.findViewById<CaptchaView>(R.id.captcha_view)
         arguments?.getInt(CaptchaUI.EXTRA_CAPTCHA_LINE_COLOR, DefaultAttributes.CAPTCHA_LINE_COLOR)
             ?.let { captchaView.setLineColor(it) }
-//        captchaView.setTextColor(textColor)
-//        captchaView.setVerificationCodeLength(verificationCodeLength)
+        arguments?.getInt(CaptchaUI.EXTRA_CAPTCHA_TEXT_COLOR, DefaultAttributes.CAPTCHA_TEXT_COLOR)
+            ?.let { captchaView.setTextColor(it) }
+        arguments?.getInt(CaptchaUI.EXTRA_CAPTCHA_CODE_LENGTH, DefaultAttributes.CAPTCHA_CODE_LENGTH)
+            ?.let { captchaView.setVerificationCodeLength(it) }
 
         val captchaHeaderView = fragmentView.findViewById<View>(R.id.captcha_header) as TextView
-        captchaHeaderView.text = arguments?.getString(CaptchaUI.EXTRA_CAPTCHA_TITLE, "Tips")
+        captchaHeaderView.text = arguments?.getString(CaptchaUI.EXTRA_CAPTCHA_TITLE, DefaultAttributes.CAPTCHA_TITLE)
 
         val captchaDescriptionView = fragmentView.findViewById<TextView>(R.id.captcha_description)
-        captchaDescriptionView.text = arguments?.getString(CaptchaUI.EXTRA_CAPTCHA_DESCRIPTION, "Tips")
+        captchaDescriptionView.text = arguments?.getString(CaptchaUI.EXTRA_CAPTCHA_DESCRIPTION, DefaultAttributes.CAPTCHA_DESCRIPTION)
 
         val captchaInputView = fragmentView.findViewById<EditText>(R.id.captcha_input)
 
         val captchaPositiveButton = fragmentView.findViewById<Button>(R.id.captcha_positive_button)
-//        captchaPositiveButton.setTextColor(positiveButtonTextColor)
-//        captchaPositiveButton.text = positiveButtonText
+        arguments?.getInt(CaptchaUI.EXTRA_CAPTCHA_POSITIVE_BUTTON_TEXT_COLOR, DefaultAttributes.CAPTCHA_POSITIVE_BUTTON_TEXT_COLOR)
+            ?.let { captchaPositiveButton.setTextColor(it) }
+        arguments?.getString(CaptchaUI.EXTRA_CAPTCHA_POSITIVE_BUTTON_TEXT, DefaultAttributes.CAPTCHA_POSITIVE_BUTTON_TEXT)
+            ?.let { captchaPositiveButton.text = it }
+
         captchaPositiveButton.setOnClickListener {
             if (captchaView.isInputCodeValid(captchaInputView.text.toString())) {
-//                callback.onVerificationCodeVerified()
-//                this.visibility = View.GONE
+                callback.onVerificationCodeVerified()
                 this.dismiss()
             }
             else {
@@ -49,10 +59,12 @@ class CaptchaBottomSheet : BottomSheetDialogFragment() {
 
 
         val captchaNegativeButton = fragmentView.findViewById<Button>(R.id.captcha_negative_button)
-//        captchaNegativeButton.setTextColor(negativeButtonTextColor)
-//        captchaNegativeButton.text = negativeButtonText
+        arguments?.getInt(CaptchaUI.EXTRA_CAPTCHA_NEGATIVE_BUTTON_TEXT_COLOR, DefaultAttributes.CAPTCHA_NEGATIVE_BUTTON_TEXT_COLOR)
+            ?.let { captchaNegativeButton.setTextColor(it) }
+        arguments?.getString(CaptchaUI.EXTRA_CAPTCHA_NEGATIVE_BUTTON_TEXT, DefaultAttributes.CAPTCHA_NEGATIVE_BUTTON_TEXT)
+            ?.let { captchaNegativeButton.text = it }
         captchaNegativeButton.setOnClickListener {
-//            callback.onNegativeButtonClicked()
+            callback.onNegativeButtonClicked()
             this.dismiss()
         }
         return fragmentView
