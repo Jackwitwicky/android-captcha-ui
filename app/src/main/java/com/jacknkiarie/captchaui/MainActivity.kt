@@ -1,7 +1,9 @@
 package com.jacknkiarie.captchaui
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,11 +16,10 @@ class MainActivity : AppCompatActivity(), CaptchaLayout.OnButtonClickedListener 
 
         captcha_layout.setOnButtonClickedListener(this)
         verify_request_button.setOnClickListener {
-            captcha_layout.visibility = View.VISIBLE
+            CaptchaUI.Builder(this@MainActivity)
+                .setCaptchaButtonListener(this)
+                .build()
         }
-
-//        val captchaLayout = CaptchaLayout()
-//        captchaLayout.show(supportFragmentManager.beginTransaction(), "CAPTCHA")
     }
 
     override fun onNegativeButtonClicked() {
