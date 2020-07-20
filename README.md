@@ -51,7 +51,7 @@ allprojects {
 Then next step is to add the library dependency on your app build.grade file
 
 ```
-//on your app build.gradle file, add the sign in ui
+//on your app build.gradle file, add the captcha ui
 
 dependencies {
 	        implementation 'com.github.Jackwitwicky:android-captcha-ui:v0.0.2'
@@ -72,7 +72,6 @@ Add the following piece of code in your calling activity XML file
         android:id="@+id/captcha_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:extraInformation="I am extra info"
         app:line_color="@color/colorAccent"
         app:text_color="@color/colorAccent"
         app:captcha_positive_button_text_color="@android:color/white"
