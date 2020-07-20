@@ -54,7 +54,7 @@ Then next step is to add the library dependency on your app build.grade file
 //on your app build.gradle file, add the sign in ui
 
 dependencies {
-	        implementation 'com.github.Jackwitwicky:android-captcha-ui:v0.0.1'
+	        implementation 'com.github.Jackwitwicky:android-captcha-ui:v0.0.2'
 	}
 ```
 
