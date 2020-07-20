@@ -5,9 +5,9 @@ before permitting your user to perform sensitive operations. e.g. Deleting of cr
 that the user must input which is then validated against the randomly generated CAPTCHA, and a success callback is sent back to you for further steps.
 
 
-CAPTCHA UI             |
-:-------------------------:|
-![](https://user-images.githubusercontent.com/8895134/87770353-9ce8be80-c827-11ea-84c2-bf4bc3cf78d8.png)  |
+CAPTCHA UI LAYOUT             |  CAPTCHA UI BOTTOM SHEET
+:-------------------------:|:-------------------------:
+![](https://user-images.githubusercontent.com/8895134/87770353-9ce8be80-c827-11ea-84c2-bf4bc3cf78d8.png)  |  ![](https://user-images.githubusercontent.com/8895134/87907917-30abcc00-ca6e-11ea-8530-fc0ea09dfb95.png)
 
 ## Getting Started
 
@@ -60,8 +60,12 @@ dependencies {
 
 #### Customization
 
-To actually use the library. Add the following piece of code in your calling activity XML file
+There are two ways to use the library. Either as a custom view via XML if you want control on where to display the UI on your activity,  
+or as a bottom sheet that you can call from your activity programmatically
 
+#### As a Layout
+
+Add the following piece of code in your calling activity XML file
 
 ```
 <com.jacknkiarie.captchaui.CaptchaLayout
@@ -128,9 +132,38 @@ actions. e.g sending the request to the server to delete the verified record
 
 
 ```
+
+### As a Bottom Sheet Dialog
+
+The lib uses a Builder pattern to instantiate and provide attributes you would like to specify for the Captcha-UI. To show the UI, simply add the
+following to your activity/fragment.
+
+```
+CaptchaUI.Builder(this)
+            .setCaptchaButtonListener(this)
+            .build()
+```
+
+That is the only method you need to specify to present the user with the default Captcha-UI. You can however use various parameters as shown below to get the exact look and feel
+ that you would like.
+
+```
+CaptchaUI.Builder(this)
+            .setCaptchaTitle("")
+            .setCaptchaDescription("")
+            .setCaptchaTextColor(Color.BLACK)
+            .setCaptchaLineColor(Color.BLACK)
+            .setCaptchaCodeLength(5)
+            .setCaptchaPositiveText("COOL")
+            .setCaptchaPositiveTextColor(Color.CYAN)
+            .setCaptchaNegativeText("NOPE!")
+            .setCaptchaNegativeTextColor(Color.RED)
+            .setCaptchaButtonListener(this)
+            .build()
+```
 ### NB
-The Captcha Layout expects the calling activity to implement the OnButtonClickedListener.
- Attempting to click the Positive or Negative Button without having defined the listener results in a un-initialized error
+Both the Captcha Layout and the Captcha Bottom Sheet expects the calling activity to implement the OnButtonClickedListener.
+ Attempting to click the Positive or Negative Button without having defined the listener results in a un-initialized error and an Illegal State Exception error respectively
 
 ## Built With
 

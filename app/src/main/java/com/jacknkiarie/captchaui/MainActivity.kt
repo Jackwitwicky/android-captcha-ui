@@ -16,10 +16,17 @@ class MainActivity : AppCompatActivity(), CaptchaLayout.OnButtonClickedListener 
 
         captcha_layout.setOnButtonClickedListener(this)
         verify_request_button.setOnClickListener {
-            CaptchaUI.Builder(this@MainActivity)
-                .setCaptchaButtonListener(this)
-                .build()
+
         }
+        CaptchaUI.Builder(this)
+            .setCaptchaTextColor(resources.getColor(R.color.colorAccent))
+            .setCaptchaLineColor(resources.getColor(R.color.colorAccent))
+            .setCaptchaCodeLength(4)
+            .setCaptchaPositiveText("OK")
+            .setCaptchaPositiveTextColor(Color.WHITE)
+            .setCaptchaNegativeText("NOPE")
+            .setCaptchaButtonListener(this)
+            .build()
     }
 
     override fun onNegativeButtonClicked() {
